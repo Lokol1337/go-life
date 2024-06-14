@@ -341,6 +341,7 @@ func (g *Game) Update(screen *ebiten.Image) error {
 		} else {
 			start_work = true
 		}
+		counter = 0
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyMinus) && inpututil.KeyPressDuration(ebiten.KeyMinus) == 1 && scale != 5 {
@@ -426,7 +427,9 @@ func (g *Game) Update(screen *ebiten.Image) error {
 		newCell.x, newCell.y = ebiten.CursorPosition()
 		newCell.x = (newCell.x - shiftX) / scale
 		newCell.y = (newCell.y - shiftY) / scale
-		initGrid = append(initGrid, newCell)
+		if !indexOf(initGrid, newCell) {
+			initGrid = append(initGrid, newCell)
+		}
 	}
 	return nil
 }
